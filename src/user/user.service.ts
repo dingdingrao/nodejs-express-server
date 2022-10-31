@@ -33,5 +33,5 @@ export const getUserByName = async (name: string) => {
   const [data] = await connection.promise().query(statement, name);
 
   // 提供数据
-  return data;
+  return (data as Array<any>)[0];
 };
