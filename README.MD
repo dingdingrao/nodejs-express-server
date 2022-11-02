@@ -1,6 +1,7 @@
 # 小白兔的开发之路
 
 ## 生成公钥和密钥
+
 cd config
 ssh-keygen -t rsa
 
