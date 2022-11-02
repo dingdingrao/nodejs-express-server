@@ -97,14 +97,23 @@ export const accessControl = (optins: AccessControlOptions) => {
     const resourceId = parseInt(request.params[resourceIdParam], 10);
 
     // 检查资源拥有权
-    try {
-      const ownResource = await possess({ resourceId, resourceType, userId });
+    if (possession) {
+      try {
+        const ownResource = await possess({
+          resourceId,
+          resourceType,
+          userId: userId!,
+        });
 
-      if (!ownResource) {
-        return next(new Error('USER_DOES_NOT_OWN_RESOURCE'));
+        if (!ownResource) {
+          return next(new Error('USER_DOES_NOT_OWN_RESOURCE'));
+        }
+      } catch (error) {
+        return next(error);
       }
-    } catch (error) {
-      return next(error);
+
+      // 下一步
+      next();
     }
   };
 };

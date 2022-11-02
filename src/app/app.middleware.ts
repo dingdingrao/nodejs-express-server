@@ -64,7 +64,7 @@ export const defaultErrorHandler = (
 
     case 'USER_DOES_NOT_OWN_RESOURCE':
       statusCode = 403;
-      message = '您不能处理这个内容';
+      message = '您无权限处理这个内容';
       break;
 
     default:
