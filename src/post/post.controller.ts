@@ -30,10 +30,11 @@ export const store = async (
 ) => {
   // 准备数据
   const { title, content } = request.body;
+  const { id: userId } = request.user;
 
   // 创建内容
   try {
-    const data = await creatPost({ title, content });
+    const data = await creatPost({ title, content, userId });
 
     // 响应
     response.status(201).send(data);
