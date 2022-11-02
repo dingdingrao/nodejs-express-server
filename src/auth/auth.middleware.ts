@@ -2,6 +2,7 @@ import { Request, Response, NextFunction } from 'express';
 import * as userService from '../user/user.service';
 import bcrypt from 'bcrypt';
 import jwt from 'jsonwebtoken';
+import { PUBLIC_KEY } from '../app/app.config';
 
 /**
  * 验证用户登录数据
@@ -54,7 +55,7 @@ export const authGuard = (
     const token = authorization.replace('Bearer ', '');
 
     // 验证令牌
-    jwt.verify(token, PUBLIC_KEY, {
+    jwt.verify(token, PUBLIC_KEY!, {
       algorithms: ['RS256'],
     });
 
