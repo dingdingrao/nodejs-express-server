@@ -1,6 +1,6 @@
 import express from 'express';
 import * as fileController from './file.controller';
-import { authGuard } from 'src/auth/auth.middleware';
+import { authGuard } from '../auth/auth.middleware';
 import { fileInterceptor } from './file.middleware';
 
 const router = express.Router();
