@@ -27,7 +27,10 @@ export const store = async (
   try {
     // 保存文件信息
     const data = await createFile({
-      ...fileInfo,
+      originalname: fileInfo.originalname!,
+      mimetype: fileInfo.mimetype!,
+      filename: fileInfo.fieldname!,
+      size: fileInfo.size!,
       userId: userId!,
       postId: Number(postId),
     });
