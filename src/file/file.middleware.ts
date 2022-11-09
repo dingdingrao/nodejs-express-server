@@ -35,16 +35,14 @@ export const fileProcessor = async (
   }
 
   // 准备文件数据
-
-  console.log(image);
-  // const { imageSize, tags } = image['_exif']!;
+  const { imageSize, tags } = (image as any)['_exif'];
 
   // 在请求中添加文件数据
-  // request.fileMetaData = {
-  //   width: imageSize.width,
-  //   height: imageSize.height,
-  //   metadata: JSON.stringify(tags),
-  // };
+  request.fileMetaData = {
+    width: imageSize.width,
+    height: imageSize.height,
+    metadata: JSON.stringify(tags),
+  };
 
   // 下一步
   next();
