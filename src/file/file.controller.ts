@@ -29,11 +29,14 @@ export const store = async (
     const data = await createFile({
       originalname: fileInfo.originalname!,
       mimetype: fileInfo.mimetype!,
-      filename: fileInfo.fieldname!,
+      filename: fileInfo.filename!,
       size: fileInfo.size!,
       userId: userId!,
       postId: Number(postId),
+      ...request.fileMetaData,
     });
+
+    console.log(data);
 
     // 做出响应
     response.status(201).send(data);
