@@ -20,7 +20,8 @@ export const createFile = async (file: FileModel) => {
 
 /**
  * 按 ID 查找文件
- */ export const findFileById = async (fileId: number) => {
+ */
+export const findFileById = async (fileId: number) => {
   // 准备查询
   const statement = `
     SELECT * FROM file
