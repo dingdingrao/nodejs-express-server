@@ -1,4 +1,3 @@
-import exp from 'constants';
 import { connection } from '../app/database/mysql';
 import { PostModel } from './post.model';
 
