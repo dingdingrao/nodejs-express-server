@@ -72,6 +72,11 @@ export const defaultErrorHandler = (
       message = '文件不存在';
       break;
 
+    case 'TAG_ALREADY_EXISTS':
+      statusCode = 400;
+      message = '标签已存在';
+      break;
+
     default:
       statusCode = 500;
       message = '服务暂时出了点问题 ⛔';

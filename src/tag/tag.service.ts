@@ -1,4 +1,4 @@
-import { connection } from 'src/app/database/mysql';
+import { connection } from '../app/database/mysql';
 import { TagModel } from './tag.model';
 
 /**
