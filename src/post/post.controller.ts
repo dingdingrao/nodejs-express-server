@@ -9,7 +9,7 @@ import {
   updatePost,
 } from './post.service';
 import { TagModel } from 'src/tag/tag.model';
-import { creatTag, getTagByName } from 'src/tag/tag.service';
+import { creatTag, getTagByName } from '../tag/tag.service';
 
 /**
  * 内容列表
@@ -123,7 +123,7 @@ export const storePostTag = async (
   // 找到标签，验证标签
   if (tag) {
     try {
-      const postTag = await postHasTags(parseInt(postId, 10), tag.id);
+      const postTag = await postHasTags(parseInt(postId!, 10), tag.id!);
 
       if (postTag) return next(new Error('POST_ALREADY_HAS_THIS_TAG'));
     } catch (error) {
@@ -144,7 +144,7 @@ export const storePostTag = async (
 
   // 给内容搭上标签
   try {
-    await creatPostTag(parseInt(postId, 10), tag.id);
+    await creatPostTag(parseInt(postId!, 10), tag.id!);
 
     response.sendStatus(201);
   } catch (error) {

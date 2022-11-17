@@ -108,5 +108,5 @@ export const postHasTags = async (postId: number, tagId: number) => {
   const [data] = await connection.promise().query(statement, [postId, tagId]);
 
   // 提供数据
-  return (data as Array<any>[0]) ? true : false;
+  return (data as Array<any>)[0] ? true : false;
 };
