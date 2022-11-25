@@ -11,11 +11,11 @@ export const store = async (
 ) => {
   // 准备数据
   const { id: userId } = request.user;
-  const { content, posetId } = request.body;
+  const { content, postId } = request.body;
 
   const comment = {
     content,
-    posetId,
+    postId,
     userId,
   };
 
