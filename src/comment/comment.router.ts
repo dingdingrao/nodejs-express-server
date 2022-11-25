@@ -1,6 +1,6 @@
 import express from 'express';
 import * as commentController from './conment.controller';
-import { authGuard } from 'src/auth/auth.middleware';
+import { authGuard } from '../auth/auth.middleware';
 
 const router = express.Router();
 
