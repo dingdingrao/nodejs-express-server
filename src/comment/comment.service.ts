@@ -29,8 +29,8 @@ export const isReplyComment = async (commentId: number) => {
   `;
 
   // 执行查询
-  const [data] = connection.promise().query(statement, commentId);
+  const [data] = await connection.promise().query(statement, commentId);
 
   // 提供数据
-  return data[0].parentId ? true : false;
+  return (data as Array<any>)[0].parentId ? true : false;
 };
