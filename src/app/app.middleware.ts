@@ -72,6 +72,11 @@ export const defaultErrorHandler = (
       message = '文件不存在';
       break;
 
+    case 'UNABLE_TO_REPLY_THIS_COMMENT':
+      statusCode = 400;
+      message = '无法回复这条评论';
+      break;
+
     default:
       statusCode = 500;
       message = '服务暂时出了点问题 ⛔';
