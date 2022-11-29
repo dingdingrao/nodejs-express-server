@@ -1,6 +1,7 @@
 import exp from 'constants';
 import { connection } from '../app/database/mysql';
 import { PostModel } from './post.model';
+import { sqlFrament } from './post.provider';
 
 /**
  * 获取内容列表
@@ -11,13 +12,10 @@ export const getPosts = async () => {
      post.id,
      post.title,
      post.content,
-     JSON_OBJECT(
-      'id', user.id,
-      'name', user.name
-     ) as user
+     ${sqlFrament.user}
     FROM post
     LEFT JOIN user
-     ON user.id = post.userId
+     ${sqlFrament.leftJoinUser}
   `;
 
   const [data] = await connection.promise().query(statement);
