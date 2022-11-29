@@ -11,4 +11,14 @@ export const sqlFrament = {
   leftJoinUser: `
     ON user.id = post.userId
   `,
+  totalComments: `
+    (
+      SELECT
+        COUNT(comment.id)
+      FROM
+        comment
+      WHERE
+        comment.postId = post.id
+    ) as totalComments
+  `,
 };
