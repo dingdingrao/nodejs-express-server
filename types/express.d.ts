@@ -6,6 +6,7 @@ declare global {
     export interface Request {
       user: TokenPayload;
       fileMetaData: { width?: number; height?: number; metadata?: {} };
+      sort: string;
     }
   }
 }
