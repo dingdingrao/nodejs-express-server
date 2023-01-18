@@ -1,7 +1,7 @@
 import exp from 'constants';
 import { connection } from '../app/database/mysql';
 import { PostModel } from './post.model';
-import { sqlFrament } from './post.provider';
+import { sqlFragment } from './post.provider';
 
 /**
  * 获取内容列表
@@ -9,14 +9,17 @@ import { sqlFrament } from './post.provider';
 export const getPosts = async () => {
   const statement = `
     SELECT
-     post.id,
-     post.title,
-     post.content,
-     ${sqlFrament.user},
-     ${sqlFrament.totalComments}
+      post.id,
+      post.title,
+      post.content,
+      ${sqlFragment.user},
+      ${sqlFragment.totalComments},
+      ${sqlFragment.file}
     FROM post
     LEFT JOIN user
-     ${sqlFrament.leftJoinUser}
+      ${sqlFragment.leftJoinUser}
+      ${sqlFragment.leftJoinOneFile}
+      GROUP BY post.id
   `;
 
   const [data] = await connection.promise().query(statement);

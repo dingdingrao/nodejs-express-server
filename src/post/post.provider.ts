@@ -1,12 +1,12 @@
 /**
  * 查询片段
  */
-export const sqlFrament = {
+export const sqlFragment = {
   user: `
     JSON_OBJECT(
       'id', user.id,
       'name', user.name
-    ) as user
+    ) AS user
   `,
   leftJoinUser: `
     ON user.id = post.userId
@@ -19,6 +19,30 @@ export const sqlFrament = {
         comment
       WHERE
         comment.postId = post.id
-    ) as totalComments
+    ) AS totalComments
+  `,
+  leftJoinOneFile: `
+    LEFT JOIN LATERAL (
+      SELECT * 
+      FROM file
+      WHERE file.postId = post.id
+      ORDER BY file.id DESC
+      LIMIT 1
+    ) AS file ON post.id = file.postId
+  `,
+  file: `
+    CAST(
+      IF(
+        COUNT(file.id),
+        GROUP_CONCAT(
+          DISTINCT JSON_OBJECT(
+            'id', file.id,
+            'width', file.width,
+            'height', file.height
+          )
+        ),
+        NULL
+      ) AS JSON
+    ) AS file
   `,
 };
