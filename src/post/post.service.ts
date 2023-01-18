@@ -14,11 +14,13 @@ export const getPosts = async () => {
       post.content,
       ${sqlFragment.user},
       ${sqlFragment.totalComments},
-      ${sqlFragment.file}
+      ${sqlFragment.file},
+      ${sqlFragment.tags}
     FROM post
     LEFT JOIN user
       ${sqlFragment.leftJoinUser}
       ${sqlFragment.leftJoinOneFile}
+      ${sqlFragment.leftJoinTag}
       GROUP BY post.id
   `;
 
