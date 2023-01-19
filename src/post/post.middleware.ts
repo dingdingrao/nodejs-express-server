@@ -3,9 +3,6 @@ import { Request, Response, NextFunction } from 'express';
 /**
  * 排序方式
  */
-/**
- *
- */
 export const sort = async (
   request: Request,
   response: Response,
@@ -38,6 +35,47 @@ export const sort = async (
 
   // 在请求中添加排序
   request.sort = sqlSort;
+
+  // 下一步
+  next();
+};
+
+/**
+ * 过滤列表
+ */
+export const filter = async (
+  request: Request,
+  response: Response,
+  next: NextFunction,
+) => {
+  // 解构查询符
+  const { tag, user, action } = request.query;
+
+  console.log(tag);
+
+  // 设置默认的过滤
+  request.filter = {
+    name: 'default',
+    sql: 'post.id IS NOT NULL',
+  };
+
+  // 按标签名过滤
+  if (tag && !user && !action) {
+    request.filter = {
+      name: 'tagName',
+      sql: 'tag.name = ?',
+      param: tag as string,
+    };
+  }
+
+  // 过滤出用户发布的内容
+  if (user && action == 'published' && !tag) {
+    request.filter = {
+      name: 'userPublished',
+      sql: 'user.id = ?',
+      param: user as string,
+    };
+  }
 
   // 下一步
   next();

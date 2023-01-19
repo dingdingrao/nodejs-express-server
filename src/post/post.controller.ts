@@ -11,7 +11,10 @@ export const index = async (
   next: NextFunction,
 ) => {
   try {
-    const posts = await getPosts({ sort: request.sort });
+    const posts = await getPosts({
+      sort: request.sort,
+      filter: request.filter,
+    });
 
     // 返回数据
     response.send(posts);
