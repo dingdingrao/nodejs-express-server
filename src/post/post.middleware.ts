@@ -1,4 +1,5 @@
 import { Request, Response, NextFunction } from 'express';
+import { POSTS_PER_PAGE } from '../app/app.config';
 
 /**
  * 排序方式
@@ -51,8 +52,6 @@ export const filter = async (
   // 解构查询符
   const { tag, user, action } = request.query;
 
-  console.log(action);
-
   // 设置默认的过滤
   request.filter = {
     name: 'default',
@@ -85,6 +84,30 @@ export const filter = async (
       param: user as string,
     };
   }
+
+  // 下一步
+  next();
+};
+
+/**
+ * 内容分页
+ */
+export const paginate = async (
+  request: Request,
+  response: Response,
+  next: NextFunction,
+) => {
+  // 当前页码
+  const { page = 1 } = request.query;
+
+  // 每页内容数量
+  const limit = Number(POSTS_PER_PAGE) || 30;
+
+  // 计算出偏移量
+  const offset = limit * (Number(page) - 1);
+
+  // 设置请求中的分页
+  request.pagination = { limit, offset };
 
   // 下一步
   next();

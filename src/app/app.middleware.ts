@@ -1,5 +1,4 @@
 import { Request, Response, NextFunction } from 'express';
-import app from '.';
 
 /**
  * 输出请求地址

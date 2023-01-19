@@ -24,6 +24,7 @@ export interface GetPostsOptionsPagination {
 interface GetPostsOptions {
   sort?: string;
   filter?: GetPostsOptionsFilter;
+  pagination?: GetPostsOptionsPagination;
 }
 
 export const getPosts = async (options: GetPostsOptions) => {
