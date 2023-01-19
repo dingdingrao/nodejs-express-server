@@ -51,7 +51,7 @@ export const filter = async (
   // 解构查询符
   const { tag, user, action } = request.query;
 
-  console.log(tag);
+  console.log(action);
 
   // 设置默认的过滤
   request.filter = {
@@ -72,6 +72,15 @@ export const filter = async (
   if (user && action == 'published' && !tag) {
     request.filter = {
       name: 'userPublished',
+      sql: 'user.id = ?',
+      param: user as string,
+    };
+  }
+
+  // 过滤出用户创建的所有内容
+  if (user) {
+    request.filter = {
+      name: 'userAllPosts',
       sql: 'user.id = ?',
       param: user as string,
     };
