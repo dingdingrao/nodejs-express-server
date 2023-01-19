@@ -24,6 +24,7 @@ export const index = async (
     const posts = await getPosts({
       sort: request.sort,
       filter: request.filter,
+      pagination: request.pagination,
     });
 
     // 返回数据

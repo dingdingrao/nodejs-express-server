@@ -1,3 +1,4 @@
+import { off } from 'process';
 import { connection } from '../app/database/mysql';
 import { PostModel } from './post.model';
 import { sqlFragment } from './post.provider';
@@ -5,22 +6,35 @@ import { sqlFragment } from './post.provider';
 /**
  * 获取内容列表
  */
+
+// 过滤
 export interface GetPostsOptionsFilter {
   name: string;
   sql?: string;
   param?: string;
 }
 
+// 分页
+export interface GetPostsOptionsPagination {
+  limit: number;
+  offset: number;
+}
+
+// 参数
 interface GetPostsOptions {
   sort?: string;
   filter?: GetPostsOptionsFilter;
 }
 
 export const getPosts = async (options: GetPostsOptions) => {
-  const { sort, filter } = options;
+  const {
+    sort,
+    filter,
+    pagination: { limit, offset },
+  } = options;
 
   // SQL 参数
-  let params: Array<any> = [];
+  let params: Array<any> = [limit, offset];
 
   // 设置 SQL 参数
   if (filter?.param) {
@@ -44,6 +58,8 @@ export const getPosts = async (options: GetPostsOptions) => {
     WHERE ${filter?.sql}
     GROUP BY post.id
     ORDER BY ${sort}
+    LIMIT ?
+    OFFSET ?
   `;
 
   const [data] = await connection.promise().query(statement, params);
