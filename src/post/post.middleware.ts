@@ -98,10 +98,10 @@ export const paginate = async (
   next: NextFunction,
 ) => {
   // 当前页码
-  const { page = 1 } = request.query;
+  const { page = 1, size = POSTS_PER_PAGE } = request.query;
 
   // 每页内容数量
-  const limit = Number(POSTS_PER_PAGE) || 30;
+  const limit = Number(size);
 
   // 计算出偏移量
   const offset = limit * (Number(page) - 1);
