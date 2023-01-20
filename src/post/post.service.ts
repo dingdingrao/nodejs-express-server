@@ -28,20 +28,17 @@ interface GetPostsOptions {
 }
 
 export const getPosts = async (options: GetPostsOptions) => {
-  const {
-    sort,
-    filter,
-    pagination: { limit, offset },
-  } = options;
+  const { sort, filter, pagination } = options;
 
   // SQL 参数
-  let params: Array<any> = [limit, offset];
+  let params: Array<any> = [pagination?.limit, pagination?.offset];
 
   // 设置 SQL 参数
   if (filter?.param) {
     params = [filter.param, ...params];
   }
 
+  // 准备查询
   const statement = `
     SELECT
       post.id,
@@ -52,10 +49,9 @@ export const getPosts = async (options: GetPostsOptions) => {
       ${sqlFragment.file},
       ${sqlFragment.tags}
     FROM post
-    LEFT JOIN user
-      ${sqlFragment.leftJoinUser}
-      ${sqlFragment.leftJoinOneFile}
-      ${sqlFragment.leftJoinTag}
+    ${sqlFragment.leftJoinUser}
+    ${sqlFragment.leftJoinOneFile}
+    ${sqlFragment.leftJoinTag}
     WHERE ${filter?.sql}
     GROUP BY post.id
     ORDER BY ${sort}
@@ -170,4 +166,30 @@ export const deletePostTag = async (postId: number, tagId: number) => {
 
   // 提供数据
   return data;
+};
+
+/**
+ * 统计内容数量
+ */
+export const getPostsTotalCount = async (options: GetPostsOptions) => {
+  const { filter } = options;
+  // SQL 参数
+  let params = [filter?.param];
+
+  // 准备查询
+  const statement = `
+    SELECT
+      COUNT(DISTINCT post.id) AS total
+    FROM post
+    ${sqlFragment.leftJoinUser}
+    ${sqlFragment.leftJoinOneFile}
+    ${sqlFragment.leftJoinTag}
+    WHERE ${filter?.sql}
+  `;
+
+  // 执行查询
+  const [data] = await connection.promise().query(statement, params);
+
+  // 提供数据
+  return (data as Array<any>)[0].total;
 };

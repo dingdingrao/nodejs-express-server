@@ -9,7 +9,8 @@ export const sqlFragment = {
     ) AS user
   `,
   leftJoinUser: `
-    ON user.id = post.userId
+    LEFT JOIN user
+      ON user.id = post.userId
   `,
   totalComments: `
     (

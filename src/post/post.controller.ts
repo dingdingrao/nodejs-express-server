@@ -8,10 +8,10 @@ import {
   getPosts,
   postHasTags,
   updatePost,
+  getPostsTotalCount,
 } from './post.service';
 import { TagModel } from 'src/tag/tag.model';
 import { creatTag, getTagByName } from '../tag/tag.service';
-
 /**
  * 内容列表
  */
@@ -20,6 +20,16 @@ export const index = async (
   response: Response,
   next: NextFunction,
 ) => {
+  try {
+    // 统计内容数据
+    const totalCount = await getPostsTotalCount({ filter: request.filter });
+
+    // 设置响应头
+    response.header('X-Total-Count', totalCount);
+  } catch (error) {
+    next(error);
+  }
+
   try {
     const posts = await getPosts({
       sort: request.sort,
