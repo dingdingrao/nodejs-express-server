@@ -42,7 +42,7 @@ export const findFileById = async (fileId: number) => {
  */
 export const imageResizer = async (image: Jimp, file: Express.Multer.File) => {
   // 图像尺寸
-  const { imageSize } = (image as any)['_exif'];
+  const imageSize = (image as any)['bitmap'];
 
   // 文件路径
   const filePath = path.join(file.destination, 'resized', file.filename);
