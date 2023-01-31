@@ -20,7 +20,6 @@ const avatarUpload = multer({
 /**
  * 文件拦截器
  */
-
 export const avatarInterceptor = avatarUpload.single('avatar');
 
 /**
