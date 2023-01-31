@@ -22,8 +22,6 @@ export const store = async (
     userId,
   };
 
-  console.log(avatar);
-
   try {
     // 保存头像数据
     const data = await createAvatar(avatar);
