@@ -13,4 +13,7 @@ export const createAvatar = async (avatar: AvatarModel) => {
 
   // 执行查询
   const [data] = await connection.promise().query(statement, avatar);
+
+  // 提供数据
+  return data;
 };
