@@ -1,6 +1,6 @@
 import { Request, Response, NextFunction } from 'express';
 import multer from 'multer';
-import { fileFilter } from 'src/file/file.middleware';
+import { fileFilter } from '../file/file.middleware';
 
 /**
  * 文件过滤器
