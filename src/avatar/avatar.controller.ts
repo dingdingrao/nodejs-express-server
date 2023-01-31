@@ -14,13 +14,15 @@ export const store = async (
   const { id: userId } = request.user;
 
   // 头像文件信息
-  const fileInfo = _.pick(request.file, ['minetype', 'filename', 'size']);
+  const fileInfo = _.pick(request.file, ['mimetype', 'filename', 'size']);
 
   // 准备头像数据
   const avatar = {
     ...fileInfo,
     userId,
   };
+
+  console.log(avatar);
 
   try {
     // 保存头像数据

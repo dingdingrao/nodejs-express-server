@@ -1,6 +1,6 @@
 export class AvatarModel {
   id?: number;
-  minetype?: string;
+  mimetype?: string;
   filename?: string;
-  size?: string;
+  size?: number;
 }

@@ -1,4 +1,4 @@
-import { connection } from 'src/app/database/mysql';
+import { connection } from '../app/database/mysql';
 import { AvatarModel } from './avatar.model';
 
 /**
@@ -13,6 +13,8 @@ export const createAvatar = async (avatar: AvatarModel) => {
 
   // 执行查询
   const [data] = await connection.promise().query(statement, avatar);
+
+  console.log(data);
 
   // 提供数据
   return data;
