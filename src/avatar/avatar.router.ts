@@ -17,6 +17,11 @@ router.post(
 );
 
 /**
+ * 查找头像
+ */
+router.get('/users/:userId/avatar', authGuard, avatarController.findAvatar);
+
+/**
  * 导出路由
  */
 export default router;

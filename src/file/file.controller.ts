@@ -38,8 +38,6 @@ export const store = async (
       ...request.fileMetaData,
     });
 
-    console.log(data);
-
     // 做出响应
     response.status(201).send(data);
   } catch (error) {
