@@ -7,6 +7,6 @@ SELECT
 FROM
   post
 INNER JOIN user_like_post
-  ON user_like_post.userId = post.id
+  ON user_like_post.postId = post.id
 WHERE 
   user_like_post.userId = ?
