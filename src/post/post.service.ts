@@ -220,13 +220,15 @@ export const getPostById = async (postId: number) => {
   `;
 
   // 执行查询
-  const [data] = await connection.promise().query(statement, postId);
+  const [data] = (await connection.promise().query(statement, postId)) as Array<
+    any
+  >;
 
   // 没有找到内容
-  if (!data) {
+  if (!data[0].id) {
     throw new Error('NOT_FOUND');
   }
 
   // 提供数据
-  return (data as Array<any>)[0];
+  return data[0];
 };
