@@ -1,6 +1,7 @@
 import express from 'express';
 import * as commentController from './conment.controller';
 import { accessControl, authGuard } from '../auth/auth.middleware';
+import { filter } from './comment.middleware';
 
 const router = express.Router();
 
@@ -33,6 +34,11 @@ router.delete(
   accessControl({ possession: true }),
   commentController.destory,
 );
+
+/**
+ * 评论列表
+ */
+router.get('/comments', filter, commentController.index);
 
 /**
  * 导出路由

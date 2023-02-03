@@ -2,6 +2,7 @@ import { Request, Response, NextFunction } from 'express';
 import {
   creatComment,
   deleteComment,
+  getComments,
   isReplyComment,
   updateComment,
 } from './comment.service';
@@ -120,6 +121,25 @@ export const destory = async (
 
     // 做出响应
     response.send(data);
+  } catch (error) {
+    next(error);
+  }
+};
+
+/**
+ * 评论列表
+ */
+export const index = async (
+  request: Request,
+  response: Response,
+  next: NextFunction,
+) => {
+  // 获取评论列表
+  try {
+    const comments = await getComments({ filter: request.filter });
+
+    // 做出响应
+    response.send(comments);
   } catch (error) {
     next(error);
   }
