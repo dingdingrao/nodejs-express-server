@@ -18,7 +18,6 @@ export interface GetPostsOptionsFilter {
 export interface GetPostsOptionsPagination {
   limit: number;
   offset: number;
-  size?: number;
 }
 
 // 参数
