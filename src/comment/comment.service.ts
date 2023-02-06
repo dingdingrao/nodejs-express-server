@@ -81,12 +81,12 @@ export const deleteComment = async (commentId: number) => {
 /**
  * 获取评论列表
  */
-interface GetCommentOptions {
+interface GetCommentsOptions {
   filter?: GetPostsOptionsFilter;
   pagination?: GetPostsOptionsPagination;
 }
 
-export const getComments = async (options: GetCommentOptions) => {
+export const getComments = async (options: GetCommentsOptions) => {
   // 解构选择
   const { filter, pagination } = options;
 
@@ -125,4 +125,40 @@ export const getComments = async (options: GetCommentOptions) => {
 
   // 提供数据
   return data;
+};
+
+/**
+ * 统计评论数
+ */
+export const getCommentsTotalCount = async (options: GetCommentsOptions) => {
+  // 解构选项
+  const { filter } = options;
+
+  // SQL 参数
+  let params: Array<any> = [];
+
+  // 设置 SQL 参数
+  if (filter?.param) {
+    params = [filter.param, ...params];
+  }
+
+  // 主备查询
+  const statement = `
+    SELECT 
+      COUNT(
+        DISTINCT comment.id
+      ) AS total
+    FROM
+      comment
+    ${sqlFragment.leftJoinUser}
+    ${sqlFragment.leftJoinPost}
+    WHERE 
+      ${filter?.sql}
+  `;
+
+  // 执行查询
+  const [data] = await connection.promise().query(statement, params);
+
+  // 提供数据
+  return (data as Array<any>)[0].total;
 };
