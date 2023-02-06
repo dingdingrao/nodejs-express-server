@@ -9,7 +9,7 @@ import { sqlFragment } from './post.provider';
 
 // 过滤
 export interface GetPostsOptionsFilter {
-  name: string;
+  name?: string;
   sql?: string;
   param?: string;
 }
@@ -18,6 +18,7 @@ export interface GetPostsOptionsFilter {
 export interface GetPostsOptionsPagination {
   limit: number;
   offset: number;
+  size?: number;
 }
 
 // 参数

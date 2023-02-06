@@ -101,23 +101,21 @@ export const filter = async (
 /**
  * 内容分页
  */
-export const paginate = async (
-  request: Request,
-  response: Response,
-  next: NextFunction,
-) => {
-  // 当前页码
-  const { page = 1, size = POSTS_PER_PAGE } = request.query;
+export const paginate = (itemPerPage?: number) => {
+  return async (request: Request, response: Response, next: NextFunction) => {
+    // 当前页码
+    const { page = 1, size = itemPerPage || 10 } = request.query;
 
-  // 每页内容数量
-  const limit = Number(size) || 10;
+    // 每页内容数量
+    const limit = Number(size);
 
-  // 计算出偏移量
-  const offset = limit * (Number(page) - 1);
+    // 计算出偏移量
+    const offset = limit * (Number(page) - 1);
 
-  // 设置请求中的分页
-  request.pagination = { limit, offset };
+    // 设置请求中的分页
+    request.pagination = { limit, offset };
 
-  // 下一步
-  next();
+    // 下一步
+    next();
+  };
 };
