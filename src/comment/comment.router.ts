@@ -48,6 +48,11 @@ router.get(
 );
 
 /**
+ * 回复列表
+ */
+router.get('/comments/:commentId/replies', commentController.indexResplies);
+
+/**
  * 导出路由
  */
 export default router;

@@ -2,6 +2,7 @@ import { Request, Response, NextFunction } from 'express';
 import {
   creatComment,
   deleteComment,
+  GetCommentReplies,
   getComments,
   getCommentsTotalCount,
   isReplyComment,
@@ -154,6 +155,28 @@ export const index = async (
 
     // 做出响应
     response.send(comments);
+  } catch (error) {
+    next(error);
+  }
+};
+
+/**
+ * 回复列表
+ */
+export const indexResplies = async (
+  request: Request,
+  response: Response,
+  next: NextFunction,
+) => {
+  // 准备查询
+  const { commentId } = request.params;
+
+  // 回去评论回复列表
+  try {
+    const replies = await GetCommentReplies({ commentId: Number(commentId) });
+
+    // 做出响应
+    response.send(replies);
   } catch (error) {
     next(error);
   }

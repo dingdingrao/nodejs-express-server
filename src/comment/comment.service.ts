@@ -184,7 +184,7 @@ export const GetCommentReplies = async (options: GetCommentRepliesOptions) => {
     ${sqlFragment.leftJoinUser}
     WHERE
       comment.parentId = ?
-    GROUT BY
+    GROUP BY
       comment.id
   `;
 
