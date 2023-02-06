@@ -110,7 +110,7 @@ export const paginate = async (
   const { page = 1, size = POSTS_PER_PAGE } = request.query;
 
   // 每页内容数量
-  const limit = Number(size);
+  const limit = Number(size) || 10;
 
   // 计算出偏移量
   const offset = limit * (Number(page) - 1);
