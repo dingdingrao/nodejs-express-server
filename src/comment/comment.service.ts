@@ -89,7 +89,6 @@ interface GetCommentOptions {
 export const getComments = async (options: GetCommentOptions) => {
   // 解构选择
   const { filter, pagination } = options;
-  console.log(filter, pagination);
 
   // SQL 参数
   let params: Array<any> = [pagination?.limit, pagination?.offset];
