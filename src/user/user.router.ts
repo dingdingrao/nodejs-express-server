@@ -1,6 +1,11 @@
 import express from 'express';
+import { authGuard } from '../auth/auth.middleware';
 import * as userController from './user.controller';
-import { validateUserData, hasPassword } from './user.middleware';
+import {
+  validateUserData,
+  hasPassword,
+  validateUpdateUserData,
+} from './user.middleware';
 
 const router = express.Router();
 
@@ -13,6 +18,16 @@ router.post('/users', validateUserData, hasPassword, userController.store);
  * 用户账户
  */
 router.get('/users/:userId', userController.show);
+
+/**
+ * 更新用户
+ */
+router.patch(
+  '/users',
+  authGuard,
+  validateUpdateUserData,
+  userController.update,
+);
 
 /**
  * 导出路由

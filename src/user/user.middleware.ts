@@ -69,7 +69,7 @@ export const validateUpdateUserData = async (
     }
 
     // 调取用户数据
-    const user = await userService.getUserById(userId, { password: true });
+    const user = await userService.getUserById(userId!, { password: true });
 
     // 验证用户密码是否匹配
     const matched = await bcrypt.compare(validate.password, user.password);
