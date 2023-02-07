@@ -105,6 +105,16 @@ export const defaultErrorHandler = (
       message = '要修改的密码不能和原密码相同';
       break;
 
+    case 'NO_NEW_DATA_AVAILABLE':
+      statusCode = 400;
+      message = '未提供新的数据';
+      break;
+
+    case 'USER_ALRADY_EXIST':
+      statusCode = 400;
+      message = '用户名已被占用';
+      break;
+
     default:
       statusCode = 500;
       message = '服务暂时出了点问题 ⛔';

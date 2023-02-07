@@ -78,9 +78,14 @@ export const validateUpdateUserData = async (
       return next(new Error('PASSWORD_DOES_NOT_MATCH'));
     }
 
+    // 检查是否提供更新的内容
+    if (!update) {
+      return next(new Error('NO_NEW_DATA_AVAILABLE'));
+    }
+
     // 检查用户是否被占用
-    if (update.name) {
-      const user = await userService.getUserByName(update.name);
+    if (update?.name) {
+      const user = await userService.getUserByName(update?.name);
 
       if (user) {
         return next(new Error('USER_ALRADY_EXIST'));
@@ -88,15 +93,15 @@ export const validateUpdateUserData = async (
     }
 
     // 处理用户更新密码
-    if (update.password) {
-      const matched = await bcrypt.compare(update.password, user.password);
+    if (update?.password) {
+      const matched = await bcrypt.compare(update?.password, user.password);
 
       if (matched) {
         return next(new Error('PASEEWORD_IS_THE_SAME'));
       }
 
       // HASH 用户更新密码
-      request.body.update.password = await bcrypt.hash(update.password, 10);
+      request.body.update.password = await bcrypt.hash(update?.password, 10);
     }
   } catch (error) {
     next(error);
