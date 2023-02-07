@@ -100,6 +100,11 @@ export const defaultErrorHandler = (
       message = '没找到这个用户 ~~ 😵‍💫';
       break;
 
+    case 'PASEEWORD_IS_THE_SAME':
+      statusCode = 400;
+      message = '要修改的密码不能和原密码相同';
+      break;
+
     default:
       statusCode = 500;
       message = '服务暂时出了点问题 ⛔';
