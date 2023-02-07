@@ -95,6 +95,11 @@ export const defaultErrorHandler = (
       message = '没找到 ~~ 😵‍💫';
       break;
 
+    case 'USER_NOT_FOUND':
+      statusCode = 404;
+      message = '没找到这个用户 ~~ 😵‍💫';
+      break;
+
     default:
       statusCode = 500;
       message = '服务暂时出了点问题 ⛔';
