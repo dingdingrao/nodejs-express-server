@@ -1,7 +1,16 @@
 import app from './app';
 import { APP_PORT } from './app/app.config';
 import { connection } from './app/database/mysql';
+import { startSwagger } from './app/app.swagger';
 
+/**
+ * expressSwaggerUI
+ */
+startSwagger;
+
+/**
+ * 启动程序
+ */
 app.listen(APP_PORT, () => {
   console.log(`🚀 服务已启动 ~`);
   console.log(`
