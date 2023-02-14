@@ -1,12 +1,12 @@
 import app from './app';
 import { APP_PORT } from './app/app.config';
 import { connection } from './app/database/mysql';
-import { startSwagger } from './app/app.swagger';
+import { swaggerInstall } from './app/swagger/index2';
 
 /**
- * expressSwaggerUI
+ * Swagger UI
  */
-startSwagger;
+swaggerInstall;
 
 /**
  * 启动程序

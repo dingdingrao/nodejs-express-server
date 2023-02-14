@@ -8,6 +8,18 @@ const router = express.Router();
 
 /**
  * 内容列表
+ *
+ * @route GET /posts
+ * @group posts - Operations about post
+ * @param {string} sort.query - 请输入用户名
+ * @param {string} tag.query - 请输入用户名
+ * @param {number} filter.query - 请输入密码
+ * @param {number} page.query - 请输入合法邮箱
+ * @param {number} size.query - 请输入合法邮箱
+ * @param {number} user.query - 请输入合法邮箱
+ * @param {number} action.query - 请输入合法邮箱
+ * @returns {object} 200 - An array of user info
+ * @returns {Error}  default - Unexpected error
  */
 router.get(
   '/posts',
